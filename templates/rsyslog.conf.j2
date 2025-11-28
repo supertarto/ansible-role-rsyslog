@@ -86,13 +86,13 @@ $IncludeConfig {{ rsyslog_include_config }}
 *.=debug;\
         auth,authpriv.none;\
         news.none;mail.none     -{{ rsyslog_debug_log }}
-{{% endif %}
+{% endif %}
 {% if rsyslog_messages_log is defined %}
 *.=info;*.=notice;*.=warn;\
         auth,authpriv.none;\
         cron,daemon.none;\
         mail,news.none          -{{ rsyslog_messages_log }}
-{{% endif %}
+{% endif %}
 
 #
 # Emergencies are sent to everybody logged in.

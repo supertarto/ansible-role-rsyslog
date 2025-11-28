@@ -62,33 +62,37 @@ $IncludeConfig {{ rsyslog_include_config }}
 #
 # First some standard log files.  Log by facility.
 #
-auth,authpriv.*                 {{ rsyslog_auth_log }}
-*.*;auth,authpriv.none          -/var/log/syslog-d/syslog.log
-#cron.*                         /var/log/cron/cron.log
-daemon.*                        -{{ rsyslog_daemon_log }}
-kern.*                          -{{ rsyslog_kern_log }}
-lpr.*                           -{{ rsyslog_lpr_log }}
-mail.*                          -{{ rsyslog_mail_log }}
-user.*                          -{{ rsyslog_user_log }}
+{% if rsyslog_auth_log is defined %}auth,authpriv.*       {{ rsyslog_auth_log }}{% endif %}
+{% if rsyslog_syslog_log is defined %}*.*;auth,authpriv.none            -{{ rsyslog_syslog_log }}{% endif %}
+{% if rsyslog_cron_log is defined %}cron.*                           {{ rsyslog_cron_log }}{% endif %}
+{% if rsyslog_daemon_log is defined %}daemon.*                        -{{ rsyslog_daemon_log }}{% endif %}
+{% if rsyslog_kern_log is defined %}kern.*                          -{{ rsyslog_kern_log }}{% endif %}
+{% if rsyslog_lpr_log  is defined %}lpr.*                           -{{ rsyslog_lpr_log }}{% endif %}
+{% if rsyslog_mail_log is defined %}mail.*                           -{{ rsyslog_mail_log  }}{% endif %}
+{% if rsyslog_user_log is defined %}user.*                          -{{ rsyslog_user_log }}{% endif %}
 
 #
 # Logging for the mail system.  Split it up so that
 # it is easy to write scripts to parse these files.
 #
-mail.info                       -{{ rsyslog_mail_info_log }}
-mail.warn                       -{{ rsyslog_mail_warn_log }}
-mail.err                        {{ rsyslog_mail_err_log }}
+{% if rsyslog_mail_info_log is defined %}mail.info                       -{{ rsyslog_mail_info_log }}{% endif %}
+{% if rsyslog_mail_warn_log is defined %}mail.warn                       -{{ rsyslog_mail_warn_log }}{% endif %}
+{% if rsyslog_mail_err_log is defined %}mail.info                       -{{ rsyslog_mail_err_log }}{% endif %}
 
 #
 # Some "catch-all" log files.
 #
+{% if rsyslog_debug_log is defined %}
 *.=debug;\
         auth,authpriv.none;\
         news.none;mail.none     -{{ rsyslog_debug_log }}
+{{% endif %}
+{% if rsyslog_messages_log is defined %}
 *.=info;*.=notice;*.=warn;\
         auth,authpriv.none;\
         cron,daemon.none;\
         mail,news.none          -{{ rsyslog_messages_log }}
+{{% endif %}
 
 #
 # Emergencies are sent to everybody logged in.

@@ -1,21 +1,21 @@
 ---
+dependencies: []
+
 galaxy_info:
-  author: "Xavier Binois"
-  description: "Ansible role to install and configure rsyslog"
   role_name: rsyslog
+  author: "Xavier Binois"
   namespace: supertarto
+  description: "Ansible role to install and configure rsyslog on Debian"
   license: "GNU General Public License v3.0"
-  min_ansible_version: 2.8
+  min_ansible_version: "2.19"
 
   platforms:
-    - name: "Debian"
+    - name: Debian
       versions:
-        - "buster"
-        - "bulleyes"
+        - bookworm
+        - trixie
 
   galaxy_tags:
     - "security"
     - "logging"
     - "rsyslog"
-
-dependencies: []

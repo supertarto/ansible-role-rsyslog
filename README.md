@@ -1,4 +1,4 @@
-# Ansible Rsyslog
+# Ansible Role Rsyslog
 [![CI](https://github.com/supertarto/ansible-role-rsyslog/actions/workflows/ci.yml/badge.svg)](https://github.com/supertarto/ansible-role-rsyslog/actions/workflows/ci.yml)
 
 Role to install an configure Rsyslog with Ansible.
